@@ -6,7 +6,6 @@ import cors from 'cors';
 import initRouter from '@/routes/router';
 import swaggerDocs from './utils/swagger';
 import log from './utils/logger';
-import deserializeUser from './middleware/deserializeUser';
 import connectDB from '@/database/database';
 
 const app = express();
@@ -15,7 +14,6 @@ const app = express();
 app.use(cors());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
-app.use(deserializeUser);
 
 app.set('port', process.env.APP_PORT || 5000);
 
@@ -26,7 +24,7 @@ app.listen(app.get('port'), () => {
   swaggerDocs(app);
 
   log.info(
-    '🚀 App is running at http://localhost:%d in %s mode',
+    '🚀 Movie Review Service is running at http://localhost:%d in %s mode',
     app.get('port'),
     app.get('env'),
   );

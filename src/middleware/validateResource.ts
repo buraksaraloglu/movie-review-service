@@ -6,6 +6,7 @@ const validate =
   (req: Request, res: Response, next: NextFunction) => {
     try {
       schema.parse({
+        headers: req.headers,
         body: req.body,
         query: req.query,
         params: req.params,

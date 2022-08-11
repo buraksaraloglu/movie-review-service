@@ -1,3 +1,1 @@
-
-### MoviesAPI - Auth Service
-
+### Movie Review Service
