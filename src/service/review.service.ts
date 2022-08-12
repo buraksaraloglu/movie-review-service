@@ -2,39 +2,23 @@ import { FilterQuery, UpdateQuery } from 'mongoose';
 
 import ReviewModel, { ReviewDocument, ReviewInput } from '@/models/Review';
 
-// export const getAllMovies = async (
-//   userId: string,
-//   { limit, skip } = { limit: 20, skip: 0 },
-// ): Promise<ReviewDocument[]> => {
-//   const query: FilterQuery<ReviewDocument> = {
-//     createdBy: userId,
-//   };
-//   const options: any = {
-//     limit,
-//     skip,
-//   };
+export const getAllReviews = async (
+  userId: string,
+  { limit, skip }: { limit: number; skip: number },
+): Promise<ReviewDocument[]> => {
+  const query: FilterQuery<ReviewDocument> = {
+    createdBy: userId,
+  };
 
-//   const movies = await ReviewModel.find(query, null, options);
+  const options: any = {
+    limit,
+    skip,
+  };
 
-//   return movies;
-// };
+  const movies = await ReviewModel.find(query, null, options);
 
-// export const getMovieById = async ({
-//   userId,
-//   movieId,
-// }: {
-//   userId: string;
-//   movieId: string;
-// }): Promise<ReviewDocument> => {
-//   const query: FilterQuery<ReviewDocument> = {
-//     createdBy: userId,
-//     _id: movieId,
-//   };
-
-//   const movie = await ReviewModel.findOne(query);
-
-//   return movie;
-// };
+  return movies;
+};
 
 export const getReviewOfMovie = async ({
   userId,

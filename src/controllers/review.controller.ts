@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 
 import {
-  // getAllMovies,
-  // getMovieById,
+  getAllReviews,
   getReviewOfMovie,
   createReview,
   updateReview,
@@ -19,31 +18,6 @@ const getUserIdFromRequest = (req: Request) => {
   return userId;
 };
 
-// export const getAllMoviesController = async (req: Request, res: Response) => {
-//   const userId = getUserIdFromRequest(req);
-
-//   const movies = await getAllMovies(userId);
-
-//   return res.status(200).send(movies);
-// };
-
-// export const getMovieByIdController = async (req: Request, res: Response) => {
-//   try {
-//     const userId = getUserIdFromRequest(req);
-
-//     const movieId = req.params.id;
-//     if (!movieId) {
-//       res.status(400).send('Bad request');
-//     }
-
-//     const movie = await getMovieById({ userId, movieId });
-
-//     return res.status(200).send(movie);
-//   } catch (error) {
-//     return res.status(400).send(error);
-//   }
-// };
-
 export const getReviewOfMovieController = async (
   req: Request,
   res: Response,
@@ -57,6 +31,28 @@ export const getReviewOfMovieController = async (
     }
 
     const reviews = await getReviewOfMovie({ userId, movieId });
+
+    return res.status(200).send(reviews);
+  } catch (error) {
+    return res.status(400).send(error.message);
+  }
+};
+
+export const getAllReviewsController = async (req: Request, res: Response) => {
+  try {
+    const userId = getUserIdFromRequest(req);
+    const pagination = req.query
+      ? {
+          limit:
+            typeof req.query.limit === 'string'
+              ? parseInt(req.query.limit)
+              : 20,
+          skip:
+            typeof req.query.skip === 'string' ? parseInt(req.query.skip) : 0,
+        }
+      : undefined;
+
+    const reviews = await getAllReviews(userId, pagination);
 
     return res.status(200).send(reviews);
   } catch (error) {

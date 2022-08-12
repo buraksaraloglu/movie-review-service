@@ -58,16 +58,13 @@ export const createReviewSchema = object({
   }),
 });
 
-export const getMovieSchema = object({
-  params: object({
-    id: string({
-      description: 'Movie id',
-    }),
-  }),
-  headers: object({
-    user: string({
-      description: 'User id',
-      required_error: 'user is required',
-    }),
-  }),
+export const getAllReviewsSchema = object({
+  query: object({
+    limit: string({
+      description: 'Limit of the reviews',
+    }).optional(),
+    skip: string({
+      description: 'Skip of the reviews',
+    }).optional(),
+  }).optional(),
 });

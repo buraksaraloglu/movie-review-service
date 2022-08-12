@@ -1,30 +1,31 @@
 import express from 'express';
 
 import {
-  // getAllMoviesController,
-  // getMovieByIdController,
+  getAllReviewsController,
   getReviewOfMovieController,
-  // getAllReviewsOfMovieController,
   createReviewController,
   updateReviewController,
 } from '@/controllers/review.controller';
 import validateResource from '@/middleware/validateResource';
 import {
   createReviewSchema,
-  // getMovieSchema,
+  getAllReviewsSchema,
   requireUserSchema,
 } from '@/schema/review.schema';
 
 const router = express.Router();
 
-// router.get('/', validateResource(requireUserSchema), getAllMoviesController);
-// router.get('/:id', validateResource(getMovieSchema), getMovieByIdController);
+router.get(
+  '/',
+  validateResource(requireUserSchema),
+  validateResource(getAllReviewsSchema),
+  getAllReviewsController,
+);
 router.get(
   '/:movieId',
   validateResource(requireUserSchema),
   getReviewOfMovieController,
 );
-// router.get('/:movieId/all', getAllReviewsOfMovieController);
 router.post(
   '/:movieId',
   validateResource(createReviewSchema),
