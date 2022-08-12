@@ -57,6 +57,21 @@ export const createReviewSchema = object({
   }),
 });
 
+export const updateReviewSchema = object({
+  body: object({
+    rating: number({
+      description: 'Rating of the movie',
+      required_error: 'rating is required',
+    })
+      .min(0)
+      .max(10)
+      .optional(),
+    comment: string({
+      description: 'Comment on the movie',
+    }).optional(),
+  }),
+});
+
 export const getAllReviewsSchema = object({
   query: object({
     limit: string({

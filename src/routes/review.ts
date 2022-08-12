@@ -11,6 +11,7 @@ import {
   createReviewSchema,
   getAllReviewsSchema,
   requireUserSchema,
+  updateReviewSchema,
 } from '@/schema/review.schema';
 
 const router = express.Router();
@@ -34,7 +35,7 @@ router.post(
 );
 router.put(
   '/:movieId',
-  validateResource(createReviewSchema),
+  validateResource(updateReviewSchema),
   validateResource(requireUserSchema),
   updateReviewController,
 );
