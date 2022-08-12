@@ -23,11 +23,10 @@ export const requireUserSchema = object({
  *        rating:
  *          type: number
  *          description: Rating of the movie
-
- *       userId:
+ *        userId:
  *         type: string
  *         description: User id
- *       comment:
+ *        comment:
  *         type: string
  *         description: Comment on the movie
  *    CreateReviewResponse:

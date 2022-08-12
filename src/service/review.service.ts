@@ -5,19 +5,24 @@ import ReviewModel, { ReviewDocument, ReviewInput } from '@/models/Review';
 export const getAllReviews = async (
   userId: string,
   { limit, skip }: { limit: number; skip: number },
+  filters?: { movies?: string[] },
 ): Promise<ReviewDocument[]> => {
   const query: FilterQuery<ReviewDocument> = {
-    createdBy: userId,
+    userId,
   };
 
-  const options: any = {
-    limit,
-    skip,
-  };
+  if (filters) {
+    if (filters.movies) {
+      query.movieId = { $in: filters.movies };
+    }
+  }
 
-  const movies = await ReviewModel.find(query, null, options);
+  const reviews = await ReviewModel.find(query)
+    .limit(limit)
+    .skip(skip)
+    .sort({ createdAt: -1 });
 
-  return movies;
+  return reviews;
 };
 
 export const getReviewOfMovie = async ({

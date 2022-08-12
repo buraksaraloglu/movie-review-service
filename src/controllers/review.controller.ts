@@ -52,7 +52,14 @@ export const getAllReviewsController = async (req: Request, res: Response) => {
         }
       : undefined;
 
-    const reviews = await getAllReviews(userId, pagination);
+    const filters: any = {};
+
+    if (typeof req.query.movies === 'string') {
+      const uniqueMovies = new Set(req.query.movies.split(','));
+      filters.movies = Array.from(uniqueMovies);
+    }
+
+    const reviews = await getAllReviews(userId, pagination, filters);
 
     return res.status(200).send(reviews);
   } catch (error) {
