@@ -1,6 +1,10 @@
 import { FilterQuery, UpdateQuery } from 'mongoose';
 
-import ReviewModel, { ReviewDocument, ReviewInput } from '@/models/Review';
+import ReviewModel, {
+  ReviewDocument,
+  ReviewInput,
+  UpdateReviewInput,
+} from '@/models/Review';
 
 export const getAllReviews = async (
   userId: string,
@@ -71,7 +75,7 @@ export const updateReview = async ({
   review,
 }: {
   userId: string;
-  review: ReviewInput;
+  review: UpdateReviewInput;
 }): Promise<ReviewDocument> => {
   const query: FilterQuery<ReviewDocument> = {
     userId,

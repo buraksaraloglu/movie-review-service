@@ -6,6 +6,12 @@ export interface ReviewInput {
   movieId: Document['_id'];
 }
 
+export interface UpdateReviewInput {
+  rating?: number;
+  comment?: string;
+  movieId: Document['_id'];
+}
+
 export interface ReviewDocument extends Document, ReviewInput {
   userId: Document['_id'];
   createdAt: Date;
